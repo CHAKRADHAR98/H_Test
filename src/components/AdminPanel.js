@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import StatusMessage from './StatusMessage';
 import UserTable from './UserTable';
 import AccessLogs from './AccessLogs';
@@ -17,15 +17,8 @@ export default function AdminPanel() {
   const [statusType, setStatusType] = useState('info');
   const [loading, setLoading] = useState(false);
   
-  // When admin connects wallet, load the data
-  useEffect(() => {
-    if (adminKey) {
-      loadData();
-    }
-  }, [adminKey]);
-  
-  // Load data from API
-  const loadData = async () => {
+  // Define loadData as a useCallback function so it can be used in dependencies
+  const loadData = useCallback(async () => {
     try {
       setLoading(true);
       setStatus('Loading data...');
@@ -54,7 +47,14 @@ export default function AdminPanel() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [adminKey]); // Include adminKey in dependencies
+  
+  // When admin connects wallet, load the data
+  useEffect(() => {
+    if (adminKey) {
+      loadData();
+    }
+  }, [adminKey, loadData]); // Include loadData in dependencies
   
   // Handle wallet connection
   const handleWalletConnect = (publicKey) => {

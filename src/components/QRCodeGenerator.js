@@ -62,7 +62,7 @@ export default function QRCodeGenerator({ onRequestCreated }) {
             />
           </div>
           <p className="mt-2 text-sm text-gray-600">
-            Scan this QR code with your phone's camera to open the mobile interface and unlock the door.
+            Scan this QR code with your phone&apos;s camera to open the mobile interface and unlock the door.
           </p>
         </div>
       )}
