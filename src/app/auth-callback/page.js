@@ -1,11 +1,14 @@
 'use client';
+export const dynamic = 'force-dynamic';
 
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import StatusMessage from '@/components/StatusMessage';
 import { createSignMessage } from '@/lib/crypto';
+import { Suspense } from 'react';
 
-export default function AuthCallbackPage() {
+// Create a client component to handle the authentication logic
+function AuthCallbackContent() {
   const searchParams = useSearchParams();
   const [status, setStatus] = useState('Processing your authentication...');
   const [statusType, setStatusType] = useState('info');
@@ -105,5 +108,28 @@ export default function AuthCallbackPage() {
         <p className="mt-4 text-gray-600 text-sm">{additionalInfo}</p>
       )}
     </main>
+  );
+}
+
+// Create a loading fallback component
+function LoadingFallback() {
+  return (
+    <main className="max-w-lg mx-auto p-4 text-center">
+      <div className="text-6xl my-8">🔒</div>
+      <h1 className="text-3xl font-bold mb-2">Project Heimdall</h1>
+      <h2 className="text-xl mb-8">Authentication Status</h2>
+      <div className="animate-pulse p-4 bg-blue-100 text-blue-700 rounded-md">
+        Loading authentication interface...
+      </div>
+    </main>
+  );
+}
+
+// Wrap the component with Suspense
+export default function AuthCallbackPage() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <AuthCallbackContent />
+    </Suspense>
   );
 }

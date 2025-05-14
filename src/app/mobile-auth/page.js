@@ -1,11 +1,16 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
+
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import StatusMessage from '@/components/StatusMessage';
 import { createSignMessage } from '@/lib/crypto';
+import { Suspense } from 'react';
 
-export default function MobileAuthPage() {
+// Create a client component to handle the authentication logic
+function MobileAuthContent() {
   const searchParams = useSearchParams();
   const [requestId, setRequestId] = useState(null);
   const [lockId, setLockId] = useState('lock001');
@@ -167,5 +172,28 @@ export default function MobileAuthPage() {
         )}
       </div>
     </main>
+  );
+}
+
+// Create a loading fallback component
+function LoadingFallback() {
+  return (
+    <main className="max-w-lg mx-auto p-4 text-center">
+      <div className="text-6xl my-6">🔒</div>
+      <h1 className="text-3xl font-bold mb-2">Project Heimdall</h1>
+      <h2 className="text-xl mb-6">Smart Lock Access</h2>
+      <div className="animate-pulse p-4 bg-blue-100 text-blue-700 rounded-md">
+        Loading mobile authentication interface...
+      </div>
+    </main>
+  );
+}
+
+// Wrap the component with Suspense
+export default function MobileAuthPage() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <MobileAuthContent />
+    </Suspense>
   );
 }

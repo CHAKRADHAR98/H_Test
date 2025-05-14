@@ -1,4 +1,3 @@
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     experimental: {
@@ -25,6 +24,8 @@ const nextConfig = {
       
       return config;
     },
+    // Disable static export for now to fix build issues
+    output: 'standalone',
   };
   
   module.exports = nextConfig;
