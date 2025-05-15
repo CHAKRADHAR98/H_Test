@@ -8,7 +8,7 @@ const users = new Map(); // publicKey -> user data
 
 // Initialize with a hardcoded lock and admin user
 const LOCK_ID = "lock001";
-const ADMIN_KEY = "6NTeQigYN8FBKxoZWYhoUbMGdSJY8nx9kto5JvKb6Dbn"; // Admin key
+const ADMIN_KEY = "Enter your public key"; // Admin key
 
 // Set up the initial admin user
 users.set(ADMIN_KEY, {
