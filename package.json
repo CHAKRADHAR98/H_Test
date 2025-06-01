@@ -2,10 +2,11 @@
   "name": "project-heimdall-next",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "next dev",
+    "dev": "node server.js",
     "build": "next build",
-    "start": "next start",
+    "start": "NODE_ENV=production node server.js",
     "lint": "next lint"
   },
   "dependencies": {
@@ -18,7 +19,8 @@
     "react-dom": "^19.0.0",
     "stream-browserify": "^3.0.0",
     "tweetnacl": "^1.0.3",
-    "uuid": "^11.1.0"
+    "uuid": "^11.1.0",
+    "ws": "^8.18.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
